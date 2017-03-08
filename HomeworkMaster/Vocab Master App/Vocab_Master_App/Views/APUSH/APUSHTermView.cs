@@ -11,10 +11,10 @@ namespace HomeworkMaster.Views.APUSH
 {
 	public class APUSHTermView : basePage
 	{
-		public APUSHTermView(apushTermInfo info)
+		public APUSHTermView(genericTermInfo info)
 		{
 			Title = info.term;
-			
+
 			Content = new StackLayout
 			{
 				Children = {
@@ -34,10 +34,18 @@ namespace HomeworkMaster.Views.APUSH
 									Text = info.definition,
 									FontSize = Device.GetNamedSize(NamedSize.Medium,typeof(Label))
 								  },
-								
-								}
 
+								},
+							new Button {
+								Text = "More Info",
+								HorizontalOptions = LayoutOptions.Center,
+								Command = new Command(()=> {
+									Device.OpenUri(new Uri( Constants.GoogleSearch + info.term.Replace(" ","+")));
+								})
+								
+							}
 							},
+
 					},
 					MANAGER.ENABLEADS ? new StackLayout {
 						VerticalOptions = LayoutOptions.End,

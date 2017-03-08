@@ -27,7 +27,7 @@ namespace HomeworkMaster
 
 	}
 
-	public class apushTermInfo {
+	public class genericTermInfo {
 
 		public string term { get; set; }
 		public string definition { get; set; }

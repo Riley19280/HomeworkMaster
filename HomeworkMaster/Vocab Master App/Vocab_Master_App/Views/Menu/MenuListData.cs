@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using System.Collections.Generic;
 using HomeworkMaster.Views;
 using HomeworkMaster.Views.APUSH;
+using HomeworkMaster.Views.APPsych;
 
 namespace HomeworkMaster.Views.Menu
 {
@@ -21,6 +22,13 @@ namespace HomeworkMaster.Views.Menu
 				Title = "APUSH", 
 				//IconSource = "leads.png", 
 				TargetType = typeof(APUSHStartPage)
+			});
+
+			this.Add(new MenuItem()
+			{
+				Title = "Psychology",
+				//IconSource = "leads.png", 
+				TargetType = typeof(APPsychStartPage)
 			});
 
 			this.Add(new MenuItem()

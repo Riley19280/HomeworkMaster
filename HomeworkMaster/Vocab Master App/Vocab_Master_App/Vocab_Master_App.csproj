@@ -38,10 +38,12 @@
     <Compile Include="INetworkAvailable.cs" />
     <Compile Include="Parsers\dateParser.cs" />
     <Compile Include="Parsers\DictionaryParser.cs" />
+    <Compile Include="Parsers\googleQuickBoxParser.cs" />
     <Compile Include="Parsers\SearchParser_Quizlet.cs" />
     <Compile Include="Parsers\WikipediaParser.cs" />
     <Compile Include="Views\Ads\AdmobBannerView.cs" />
     <Compile Include="App.cs" />
+    <Compile Include="Views\APPsych\APPsychStartPage.cs" />
     <Compile Include="Views\APUSH\APUSHStartPage.cs" />
     <Compile Include="Views\APUSH\APUSHTermView.cs" />
     <Compile Include="Views\basePage.cs" />

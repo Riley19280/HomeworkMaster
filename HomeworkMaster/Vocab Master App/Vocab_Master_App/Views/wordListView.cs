@@ -13,7 +13,7 @@ namespace HomeworkMaster.Views
 	{
 		StackLayout BASESTACK;
 		ListView listView;
-		ActivityIndicator ai = new ActivityIndicator();
+		ActivityIndicator ai = new ActivityIndicator() {Color = Constants.palette.secondary_text };
 		public wordListView()
 		{
 			Title = "My Terms";
@@ -43,7 +43,7 @@ namespace HomeworkMaster.Views
 						wordLabel.SetBinding(Label.TextProperty, "word");
 						defLabel.SetBinding(Label.TextProperty, "definition");
 					}
-					else if (MANAGER.Mode == MANAGER.MODE.APUSH)
+					else if (MANAGER.Mode == MANAGER.MODE.APUSH || MANAGER.Mode == MANAGER.MODE.APPSYCH)
 					{
 						wordLabel.SetBinding(Label.TextProperty, "term");
 						defLabel.SetBinding(Label.TextProperty, "definition");
@@ -115,9 +115,14 @@ namespace HomeworkMaster.Views
 
 						break;
 					case MANAGER.MODE.APUSH:
-						var termView = new APUSHTermView(listView.SelectedItem as apushTermInfo);
+						var termView = new APUSHTermView(listView.SelectedItem as genericTermInfo);
 						listView.SelectedItem = null;
 						await Navigation.PushAsync(termView);
+						break;
+					case MANAGER.MODE.APPSYCH:
+						var iView = new APUSHTermView(listView.SelectedItem as genericTermInfo);
+						listView.SelectedItem = null;
+						await Navigation.PushAsync(iView);
 						break;
 					case MANAGER.MODE.DATE:
 						var dateView = new dateView(listView.SelectedItem as DateInfo);
@@ -138,7 +143,7 @@ namespace HomeworkMaster.Views
 				{
 
 
-					BASESTACK.Children.Insert(1, ai);
+					BASESTACK.Children.Insert(0, ai);
 					ai.IsRunning = true;
 					ai.IsEnabled = true;
 
@@ -159,16 +164,28 @@ namespace HomeworkMaster.Views
 								listView.ItemsSource = wordsInfo;
 								break;
 							case MANAGER.MODE.APUSH:
-								List<apushTermInfo> termInfo = new List<apushTermInfo>();
+								List<genericTermInfo> termInfo = new List<genericTermInfo>();
 								for (int i = 0; i < MANAGER.words.Count; i++)
 								{
 									downloadMgr downloadMgr = new downloadMgr();
 
-									apushTermInfo w = await downloadMgr.getAPUSHDefinition(MANAGER.words[i]);
+									genericTermInfo w = await downloadMgr.getAPUSHDefinition(MANAGER.words[i]);
 									termInfo.Add(w);
 
 								}
 								listView.ItemsSource = termInfo;
+								break;
+							case MANAGER.MODE.APPSYCH:
+								List<genericTermInfo> ti = new List<genericTermInfo>();
+								for (int i = 0; i < MANAGER.words.Count; i++)
+								{
+									downloadMgr downloadMgr = new downloadMgr();
+
+									genericTermInfo w = await downloadMgr.getPsychDefinition(MANAGER.words[i]);
+									ti.Add(w);
+
+								}
+								listView.ItemsSource = ti;
 								break;
 							case MANAGER.MODE.DATE:
 								List<DateInfo> dateInfo = new List<DateInfo>();

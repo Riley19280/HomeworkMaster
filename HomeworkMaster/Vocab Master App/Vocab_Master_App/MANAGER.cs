@@ -11,7 +11,7 @@ namespace HomeworkMaster
 	{
 		public static bool wordListNeedsRefresh = false;
 		
-		public static bool ENABLEADS = true;
+		public static bool ENABLEADS = false;
 
 		public enum SEARCHTYPE
 		{
@@ -21,7 +21,7 @@ namespace HomeworkMaster
 
 		public static SEARCHTYPE SearchType = SEARCHTYPE.GOOGLE;
 
-		public enum MODE { DICTIONARY,APUSH,DATE }
+		public enum MODE { DICTIONARY,APUSH,APPSYCH,DATE }
 
 		public static MODE Mode = MODE.DICTIONARY;
 

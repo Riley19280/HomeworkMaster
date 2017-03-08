@@ -52,16 +52,16 @@ namespace HomeworkMaster.Parsers
 
 			
 
-			MatchCollection quzentries = Regex.Matches(quizletHTML, @"<div data-id=..[0-9]+..((.|\n)*?)<\/p>((.|\n)*?)<\/div>((.|\n)*?)<\/div>");
+			MatchCollection quzentries = Regex.Matches(quizletHTML, @"<div class=.SetPage-term.(.*?)<\/div><\/div><\/div><\/div><\/div><\/div><\/div>");
 
 			List<quizletEntry> entries = new List<quizletEntry>();
 
 			foreach (Match s in quzentries)
 			{
-				entries.Add(new quizletEntry(RipTags(Regex.Match(s.ToString(), @"<h3 class=.word ((.|\n)*?)<\/span>").ToString()), RipTags(Regex.Match(s.ToString(), @"<p class=.definition ((.|\n)*?)<\/span>").ToString()), s.ToString()));
+				entries.Add(new quizletEntry(RipTags(Regex.Match(s.ToString(), @"<div class=.SetPageTerm-wordText(.*?<\/div>)").ToString()), RipTags(Regex.Match(s.ToString(), @"<div class=.SetPageTerm-definitionText.>(.*?<\/div>)").ToString()), s.ToString()));
 			}
 
-			quizletEntry final = new quizletEntry("NUL", "NUL", "NUL");//the final results
+			quizletEntry final = new quizletEntry("Not Found", "Not Found", "Not Found");//the final results
 
 			foreach (string s in searchTerm.Split(' '))
 				termList.Add(s);

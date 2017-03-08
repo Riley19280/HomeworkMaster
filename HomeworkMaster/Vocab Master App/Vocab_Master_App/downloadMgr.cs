@@ -88,9 +88,9 @@ namespace HomeworkMaster
 			return WI;
 		}
 
-		public async Task<apushTermInfo> getAPUSHDefinition(string term)
+		public async Task<genericTermInfo> getAPUSHDefinition(string term)
 		{
-			apushTermInfo AT = new apushTermInfo();
+			genericTermInfo AT = new genericTermInfo();
 
 			string httpText = "";
 
@@ -101,6 +101,27 @@ namespace HomeworkMaster
 					SearchParser_Quizlet qp = new SearchParser_Quizlet(httpText, term);
 					AT.term = WebUtility.HtmlDecode(qp.OUTPUT.title);
 					AT.definition = WebUtility.HtmlDecode(qp.OUTPUT.text);
+					break;
+				default:
+					break;
+			}
+
+			return AT;
+		}
+
+		public async Task<genericTermInfo> getPsychDefinition(string term)
+		{
+			genericTermInfo AT = new genericTermInfo();
+
+			string httpText = "";
+
+			switch (MANAGER.Mode)
+			{
+				case MANAGER.MODE.APPSYCH:
+					httpText = await new HttpClient().GetStringAsync(Constants.GoogleSearch + term.Replace(" ", "+") + "+psychology+definition");
+					googleQuickBoxParser qp = new googleQuickBoxParser(httpText, term);
+					AT.term = WebUtility.HtmlDecode(qp.OUTPUT.term);
+					AT.definition = WebUtility.HtmlDecode(qp.OUTPUT.definition);
 					break;
 				default:
 					break;
